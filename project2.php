@@ -423,25 +423,25 @@ echo "</style>";
         <div class="table-responsive">
 
 <?php
-echo "<table style=text-align:center; width:200%;>";
+echo "<table style='text-align:center; width:200%;'>";
 
-// Menghitung jumlah kolom yang akan ditampilkan (maksimum 15 kolom)
-$numColumns = min(count($averages), 15); // Mengambil maksimum 15 kolom
+// Menghitung jumlah kolom yang akan ditampilkan
+$numColumns = count($averages); // Mengambil semua kolom
 
-// Mengambil 10 entry terakhir dari array $averages
-$averages_last_10 = array_slice($averages, -$numColumns, $numColumns, true);
+// Mengambil seluruh entry dari array $averages
+$averages_all = array_slice($averages, -$numColumns, $numColumns, true);
 
 echo "<tr><th>Tanggal</th>";
-// Loop untuk setiap tanggal di 10 kolom terakhir
-foreach ($averages_last_10 as $tanggal => $values) {
+// Loop untuk setiap tanggal di semua kolom
+foreach ($averages_all as $tanggal => $values) {
     // Menggunakan colspan="2" untuk setiap tanggal
     echo "<th colspan='2'>$tanggal</th>";
 }
 echo "</tr>";
 
 echo "<tr><th></th>"; // Baris kosong untuk Kolom Max dan Min
-// Loop untuk setiap tanggal di 10 kolom terakhir
-foreach ($averages_last_10 as $values) {
+// Loop untuk setiap tanggal di semua kolom
+foreach ($averages_all as $values) {
     // Kolom Max
     echo "<th>Max</th>";
     // Kolom Min
@@ -450,8 +450,8 @@ foreach ($averages_last_10 as $values) {
 echo "</tr>";
 
 echo "<tr><th>Suhu</th>";
-// Loop untuk setiap tanggal di 10 kolom terakhir
-foreach ($averages_last_10 as $values) {
+// Loop untuk setiap tanggal di semua kolom
+foreach ($averages_all as $values) {
     // Kolom Suhu Max
     echo "<td>{$values['max_suhu']}</td>";
     // Kolom Suhu Min
@@ -460,8 +460,8 @@ foreach ($averages_last_10 as $values) {
 echo "</tr>";
 
 echo "<tr><th>Kelembapan</th>";
-// Loop untuk setiap tanggal di 10 kolom terakhir
-foreach ($averages_last_10 as $values) {
+// Loop untuk setiap tanggal di semua kolom
+foreach ($averages_all as $values) {
     // Kolom Kelembapan Max
     echo "<td>{$values['max_kelembapan']}</td>";
     // Kolom Kelembapan Min
