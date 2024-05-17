@@ -1,0 +1,58 @@
+    <script id="refresh_grafik_kelembapan">
+        const aValues = [
+            <?php foreach ($graph_reversed as $data) : ?>
+                "<?php echo $data["tanggal"]; ?>", // Memasukkan data tanggal ke sumbu x
+            <?php endforeach; ?>
+        ];
+        const bValues = [
+            <?php foreach ($graph_reversed as $data) : ?>
+                "<?php echo $data["kelembapan"]; ?>", // Memasukkan data kelembapan ke sumbu y
+            <?php endforeach; ?>
+        ];
+        const cValues = [
+            <?php foreach ($graph_reversed as $data) : ?>
+                "<?php echo $data["waktu"]; ?>", // Memasukkan data waktu sebagai informasi tooltip
+            <?php endforeach; ?>
+        ];
+
+        new Chart("humi", {
+            type: "line",
+            data: {
+                labels: aValues, // Menggunakan array aValues sebagai label sumbu x (tanggal)
+                datasets: [{
+                    fill: true,
+                    lineTension: 0,
+                    backgroundColor: "rgba(0,0,255,0.2)",
+                    borderColor: "rgba(0,0,255,0.5)",
+                    data: bValues // Data kelembapan
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: "Grafik Kelembapan"
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            max: 100
+                        }
+                    }]
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var index = tooltipItem.index;
+                            var kelembapan = data.datasets[0].data[index];
+                            var waktu = cValues[index];
+                            return "Waktu: " + waktu + " - Kelembapan: " + kelembapan + "%";
+                        }
+                    }
+                }
+            }
+        });
+    </script>
